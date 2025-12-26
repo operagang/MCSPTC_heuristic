@@ -47,7 +47,7 @@ if __name__ == "__main__":
     for idx in range(30):
         main(
             n_cranes=2,
-            n_jobs=5,
+            n_jobs=100,
             instance_idx=idx,
-            n_sampling=100
+            n_sampling=1000
         )

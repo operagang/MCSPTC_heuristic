@@ -23,7 +23,7 @@ def sgs_a(instance):
     S, ES, W, Q, G, C, L = {}, {}, {}, {}, {}, {}, {}
 
     for t in T:
-        ES[t] = [t]
+        ES[t] = a[t]
         W[t] = set(t2 for t2 in T if (t, t2) in Xi)
         Q[t] = len(set(t2 for t2 in T if (t2, t) in Xi))
     
