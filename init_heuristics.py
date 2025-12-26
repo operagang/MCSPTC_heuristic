@@ -9,8 +9,8 @@ def sgs_a(instance):
     V = instance['V']
     l0 = instance['l^0']
     Vt = instance['V_tau']
-    ls = instance['l^1']
-    lt = instance['l^2']
+    l1 = instance['l^1']
+    l2 = instance['l^2']
     that = instance['hat(t)']
     Theta = instance['Theta']
     h = instance['h']
@@ -23,7 +23,7 @@ def sgs_a(instance):
     S, ES, W, Q, G, C, L = {}, {}, {}, {}, {}, {}, {}
 
     for t in T:
-        ES[t] = a[t]
+        ES[t] = [t]
         W[t] = set(t2 for t2 in T if (t, t2) in Xi)
         Q[t] = len(set(t2 for t2 in T if (t2, t) in Xi))
     
@@ -50,7 +50,7 @@ def sgs_a(instance):
         E = dict()
 
         for v in Vt[tstar]:
-            est = max(ES[tstar], C[v] + abs(ls[tstar] - L[v]) * that)
+            est = max(ES[tstar], C[v] + abs(l1[tstar] - L[v]) * that)
             for vprime in V:
                 if crane_tr[vprime] != crane_tr[v]:
                     continue
@@ -76,7 +76,7 @@ def sgs_a(instance):
         S[tstar] = E[vstar]
         G[vstar].add(tstar)
         C[vstar] = E[vstar] + h[tstar]
-        L[vstar] = lt[tstar]
+        L[vstar] = l2[tstar]
         U.remove(tstar)
 
         for t in W[tstar]:
