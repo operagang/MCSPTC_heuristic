@@ -39,11 +39,11 @@ def sgs_a(instance):
         tstar = min(A, key=lambda t: ES[t])
 
 
-        min_val = min(ES[t] for t in A)
-        tstars = [t for t in A if ES[t] == min_val]
-        if len(tstars) > 1:
-            pass
-        tstar = random.choice(tstars)
+        # min_val = min(ES[t] for t in A)
+        # tstars = [t for t in A if ES[t] == min_val]
+        # if len(tstars) > 1:
+        #     pass
+        # tstar = random.choice(tstars)
 
 
         Vprime = set()
@@ -66,11 +66,11 @@ def sgs_a(instance):
         vstar = min(Vprime, key=lambda v: E[v])
 
 
-        min_val = min(E[v] for v in Vprime)
-        vstars = [v for v in Vprime if E[v] == min_val]
-        if len(vstars) > 1:
-            pass
-        vstar = random.choice(vstars)
+        # min_val = min(E[v] for v in Vprime)
+        # vstars = [v for v in Vprime if E[v] == min_val]
+        # if len(vstars) > 1:
+        #     pass
+        # vstar = random.choice(vstars)
 
 
         S[tstar] = E[vstar]

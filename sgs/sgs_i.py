@@ -38,7 +38,7 @@ def sgs_i(instance):
 
 
 
-
+    traj = []
     while U:
         A = list(t for t in U if Q[t] == 0)
         A.sort(key=lambda x:(ES[x],x))
@@ -47,8 +47,8 @@ def sgs_i(instance):
         Vprime = list()
         E = dict()
 
-
-
+        if t1 == 45:
+            pass
 
 
         for v1 in Vt[t1]:
@@ -91,6 +91,7 @@ def sgs_i(instance):
         C[vstar] = E[vstar] + h[tstar]
         L[vstar] = l2[tstar]
         U.remove(tstar)
+        traj.append((tstar, vstar, S[tstar]))
 
         for t in W[tstar]:
             Q[t] -= 1
@@ -99,7 +100,7 @@ def sgs_i(instance):
     obj = sum(S[t] + h[t] - r[t] for t in Tobj)
 
     delay = sum(max(0, S[t] - b[t]) for t in T)
-
+    # print(traj)
     return S, G, obj, delay
 
 
@@ -110,12 +111,17 @@ if __name__ == "__main__":
     
     def main(n_cranes, n_jobs, instance_idx):
         inst_path = f"./instances/{n_cranes}_{n_jobs}_{instance_idx}.json"
+
+        start = time.time()
         instance = load_instance(inst_path)
+        load_time = time.time() - start
+        print(f"[INFO] Instance loaded in {load_time:.4f} sec")
 
         results = []
         start = time.time()
         schedule, assignment, obj, delay = sgs_i(instance)
         runtime = time.time() - start
+        print(f"[INFO] Heuristic executed in {runtime:.4f} sec")
 
         results.append((obj, delay))
         results.sort(key=lambda x: (x[1], x[0]))
@@ -123,7 +129,7 @@ if __name__ == "__main__":
     
     for idx in range(30):
         main(
-            n_cranes=2,
-            n_jobs=100,
+            n_cranes=3,
+            n_jobs=50,
             instance_idx=idx
         )

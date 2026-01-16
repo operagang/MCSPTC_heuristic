@@ -10,7 +10,10 @@ def main(n_cranes, n_jobs, instance_idx, n_sampling=1):
     # 인스턴스 경로 생성
     inst_path = f"./instances/{n_cranes}_{n_jobs}_{instance_idx}.json"
     # 로딩
+    start = time.time()
     instance = load_instance(inst_path)
+    load_time = time.time() - start
+    print(f"[INFO] Instance loaded in {load_time:.4f} sec")
 
     results = []
     for _ in tqdm(range(n_sampling)):
@@ -19,6 +22,7 @@ def main(n_cranes, n_jobs, instance_idx, n_sampling=1):
         start = time.time()
         schedule, assignment, obj, delay = sgs_a(instance)
         runtime = time.time() - start
+        print(f"[INFO] Heuristic executed in {runtime:.4f} sec")
 
         # 결과 출력
         # print(f"[INFO] Instance: C={n_cranes}, J={n_jobs}, idx={instance_idx}")
@@ -49,5 +53,5 @@ if __name__ == "__main__":
             n_cranes=2,
             n_jobs=100,
             instance_idx=idx,
-            n_sampling=1000
+            n_sampling=1
         )
